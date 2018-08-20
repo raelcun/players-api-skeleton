@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const server = require('../../src/server');
-const { User } = require('../../src/models');
+const { model: User } = require('../../src/User');
 const data = require('../util/data');
 
 describe('User API', () => {

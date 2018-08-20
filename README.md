@@ -1,3 +1,29 @@
+# Notes
+
+If I were to spend more time on this, I'd do the following:
+* Pull auth code into a library so it can be tested independently of the application
+* Use a declarative approach to excluding auth, right now it's just a path expression
+* Models should be rock solid and treated as a library imo. I have made many assumptions about the
+input which would inevitably cause bugs. Assertions to ensure preconditions are true and input validation
+should be added. They need lots of love.
+* Most of the tests are schema validation, but don't ensure that the data is correct. I'd like to see what people
+think of using Joi to simplify schema validation and modify the tests to make sure the correct data is being
+returned, not just the right data type.
+* Now that there is some implementation, I'd love to add some unit tests after a quick code review to lock in
+the core functionality.
+* The controller input validation is really bad and leaves the api open to exploitation. The inputs should
+be sanitized much more thoroughly. Even just using Joi to validate inputs a bit would go a long way.
+* It is really dangerous to be returning a data model from the "database" to the user. There should be a DTO
+for the controller return values that is mapped from the data model. For example, the DTO wouldn't have any
+sensitive information like who created the player. Security is the main concern here.
+* The remove functions being passed an empty object is a bit awkward with the current api. I assume it was
+hooked up to mongo at some point and that's why it's an empty object. I would prefer to have a method on the domain
+model explicitly removing all records so the domain model isn't so closely tied to the database itself.
+* Handling errors could be done in a more declarative way that wouldn't require you to trace through the code as much
+  * In addition, status codes should be decoupled from the errors; right now, they're really tightly coupled.
+* Secret shouldn't be committed to git :P
+
+
 # players-api-skeleton
 
 ## Instructions

@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const server = require('../../src/server');
-const { User, Player } = require('../../src/models');
+const { model: User } = require('../../src/User');
+const { model: Player } = require('../../src/Player');
 const data = require('../util/data');
 
 let token, user;
